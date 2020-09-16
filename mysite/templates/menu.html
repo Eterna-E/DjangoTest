@@ -16,5 +16,8 @@
         {% empty %}
             <p>本餐廳啥都沒賣!</p>
         {% endfor %}
+        {% for item in foody%}
+            {{ item.0 }} = {{ item.1 }}
+        {% endfor %}
     </body>
 </html>
