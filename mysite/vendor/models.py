@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib import admin
 # 額外 import 這個套件
 from django.utils.translation import gettext_lazy as _
+from django.urls import reverse # 新增
 
 
 # Create your models here.
@@ -13,6 +14,8 @@ class Vendor(models.Model):
     # 覆寫 __str__
     def __str__(self):
         return self.vendor_name
+    def get_absolute_url(self):
+    		return reverse("vendors:vendor_id", kwargs={"pk": self.pk})
 
 class Food(models.Model):
     food_name = models.CharField(max_length = 30) # 食物名稱
