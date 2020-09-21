@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, re_path
-from mysite.views import here, add, math # <-引進add
+from mysite.views import here, add, math,register # <-引進add
 from restaurants.views import menu
+from django.views.generic.base import TemplateView
 
 urlpatterns = [
     path('polls/', include('polls.urls')),
@@ -25,5 +26,8 @@ urlpatterns = [
     re_path(r'(\d{1,2})/plus/(\d{1,2})', add), # <- 加入這行
     re_path(r'(\d{1,2})/math/(\d{1,2})', math),
     path('menu/',menu),
-    path('vendor/', include('vendor.urls'))
+    path('vendor/', include('vendor.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('', TemplateView.as_view(template_name='home.html')),
+    path('register/', register, name='register'),
 ]

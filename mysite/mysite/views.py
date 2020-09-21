@@ -1,5 +1,6 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+from django.contrib.auth.forms import UserCreationForm
 
 def here(request):
     return HttpResponse('媽，我在這!')
@@ -23,3 +24,17 @@ def menu(request):
     foody = food1.items()
     foods = [food1, food2]
     return render(request,'menu.html', locals())
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        print("Errors", form.errors)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+        else:
+            return render(request, 'registration/register.html', {'form':form})
+    else:
+        form = UserCreationForm()
+        context = {'form': form}
+        return render(request, 'registration/register.html', context)
